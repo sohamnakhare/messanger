@@ -1,0 +1,20 @@
+{
+  "name": "messenger",
+  "description": "Total.js Messenger is a small alternative to Slack.",
+  "version": "3.0.0",
+  "main": "release.js",
+  "dependencies": {
+    "mongodb": "^3.0.7",
+    "total.js": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chat",
+    "messenger",
+    "slack"
+  ],
+  "author": "Peter Širka",
+  "license": "MIT"
+}
