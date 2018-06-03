@@ -267,6 +267,7 @@
 
 					response.channels.forEach(function(item) {
 						item.is = user.channels ? user.channels[item.id] === true : true;
+						item.is = true;
 						item.visible = user.blacklist ? (user.blacklist[item.id] ? false : true) : true;
 					});
 					SET('current.channels', response.channels);

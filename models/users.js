@@ -1,4 +1,4 @@
-NEWSCHEMA('User').make(function(schema) {
+NEWSCHEMA('User').make(function (schema) {
 
 	schema.define('id', 'UID');
 	schema.define('name', 'String(50)', true);
@@ -13,13 +13,14 @@ NEWSCHEMA('User').make(function(schema) {
 	schema.define('notifications', Boolean);
 	schema.define('sa', Boolean);
 
-	schema.setSave(function(error, model, options, callback, controller) {
+	schema.setSave(function (error, model, options, callback, controller) {
 		if (!controller.user.sa) {
 			error.push('error-user-privileges');
 			return callback();
 		}
 
 		var tmp;
+		var isNewUser = false;
 		if (model.id) {
 			tmp = F.global.users.findItem('id', model.id);
 			tmp.name = model.name;
@@ -28,8 +29,9 @@ NEWSCHEMA('User').make(function(schema) {
 			tmp.department = model.department;
 			tmp.picture = model.picture;
 			tmp.blocked = model.blocked;
-			var linker = model.name.slug(); // beacause of unicodes (e.g. Chinese chars)
-			linker && (tmp.linker = linker);
+			// var linker = model.name.slug(); // beacause of unicodes (e.g. Chinese chars)
+			// linker && (tmp.linker = linker);
+			tmp.linker = model.email;
 			tmp.channels = model.channels;
 			tmp.status = model.status;
 			tmp.notifications = model.notifications;
@@ -45,23 +47,46 @@ NEWSCHEMA('User').make(function(schema) {
 			tmp.recent = {};
 			tmp.lastmessages = {};
 			tmp.online = false;
-			tmp.linker = model.name.slug();
+			// tmp.linker = model.name.slug();
+			tmp.linker = tmp.email;
 			tmp.sa = model.sa;
 			tmp.theme = 'dark';
-			F.global.users.push(tmp);
+			isNewUser = true;
+			// F.global.users.push(tmp);
 		}
 
-		!tmp.linker && (tmp.linker = U.GUID(10));
-		var index = F.global.users.findIndex(n => n.id !== tmp.id && n.linker === tmp.linker);
-		index !== -1 && (tmp.linker += U.GUID(3));
+		// !tmp.linker && (tmp.linker = U.GUID(10));
+		// var index = F.global.users.findIndex(n => n.id !== tmp.id && n.linker === tmp.linker);
+		// index !== -1 && (tmp.linker += U.GUID(3));
 
-		F.global.users.quicksort('name');
-		F.global.refresh && F.global.refresh();
-		OPERATION('users.save', NOOP);
-		callback(SUCCESS(true));
+		var users = DATABASE('users');
+		if (isNewUser) {
+			users.insertOne(tmp, (err, results) => {
+				if (err) {
+					return callback(err);
+				}
+				F.global.users.push(tmp);
+				F.global.users.quicksort('name');
+				F.global.refresh && F.global.refresh();
+				OPERATION('users.save', NOOP);
+				callback(SUCCESS(true));
+			});
+			return;
+		}
+		users.update({ email: tmp.email }, { "$set": tmp }, (err, results) => {
+			if (err) {
+				console.log('error');
+				return callback(SUCCESS(true));
+			}
+
+			F.global.users.quicksort('name');
+			F.global.refresh && F.global.refresh();
+			OPERATION('users.save', NOOP);
+			callback(SUCCESS(true));
+		});
 	});
 
-	schema.setGet(function(error, model, options, callback, controller) {
+	schema.setGet(function (error, model, options, callback, controller) {
 
 		if (!controller.user.sa) {
 			error.push('error-user-privileges');
@@ -73,7 +98,7 @@ NEWSCHEMA('User').make(function(schema) {
 		callback(item);
 	});
 
-	schema.setRemove(function(error, options, callback, controller) {
+	schema.setRemove(function (error, options, callback, controller) {
 
 		if (!controller.user.sa) {
 			error.push('error-user-privileges');
@@ -88,13 +113,13 @@ NEWSCHEMA('User').make(function(schema) {
 
 });
 
-exports.UserModel = function(id = '', name='', email='', roles=[], status='',
-position='Administrator', department='Members', channels=null, blocked=false, notifications=false,
-sa=false, linker='admin', picture='face', mobile=false, theme='dark') {
-    this.id = id;
+exports.UserModel = function (id = '', name = '', email = '', roles = [], status = '',
+	position = 'Digital Nomad', department = 'Digital Nomad', channels = null, blocked = false, notifications = true,
+	sa = false, linker, picture = 'face', mobile = false, theme = 'dark') {
+	this.id = id;
 	this.name = name;
-    this.email = email;
-    this.roles = roles;
+	this.email = email;
+	this.roles = roles;
 	this.status = status;
 	this.position = position;
 	this.department = department;
@@ -103,24 +128,24 @@ sa=false, linker='admin', picture='face', mobile=false, theme='dark') {
 	this.blocked = blocked;
 	this.notifications = notifications;
 	this.sa = sa;
-	this.linker = linker;
+	this.linker = linker ? linker : email;
 	this.mobile = mobile;
 	this.unread = {};
-    this.recent = {};
-    this.lastmessages = {},
-    this.blacklist = {};
+	this.recent = {};
+	this.lastmessages = {},
+		this.blacklist = {};
 	this.online = false;
 	this.picture = picture;
 	this.theme = theme;
 };
 
-exports.getUser = function(email, callback) {
+exports.getUser = function (email, callback) {
 	var users = DATABASE('users');
-    users.find({email: email}).toArray(function(err, docs) {
-        if(err) {
+	users.find({ email: email }).toArray(function (err, docs) {
+		if (err) {
 			return callback(err);
 		}
 
 		return callback(null, docs);
-    });
+	});
 }

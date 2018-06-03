@@ -1,18 +1,19 @@
 const Fs = require('fs');
 
-NEWOPERATION('users.save', function(error, value, callback) {
+NEWOPERATION('users.save', function (error, value, callback) {
 	callback(SUCCESS(true));
-	setTimeout2('users.save', function() {
+	setTimeout2('users.save', function () {
 		Fs.writeFile(F.path.databases('users.json'), JSON.stringify(F.global.users), F.error());
 	}, 500, 20);
 });
 
-NEWOPERATION('users.load', function(error, value, callback) {
-	Fs.readFile(F.path.databases('users.json'), function(err, data) {
+NEWOPERATION('users.load', function (error, value, callback) {
+	var users = DATABASE('users');
+	users.find().toArray(function (err, data) {
 		if (err)
 			F.global.users = [];
 		else
-			F.global.users = data.toString('utf8').parseJSON(true);
+			F.global.users = data;
 
 		for (var i = 0, length = F.global.users.length; i < length; i++) {
 			var user = F.global.users[i];
@@ -26,28 +27,59 @@ NEWOPERATION('users.load', function(error, value, callback) {
 			!user.theme && (user.theme = 'dark');
 
 			// Cleaner for unhandled assignment
-			delete user.recent[''];
-			delete user.recent[user.id];
-			delete user.unread[user.id];
-			delete user.unread[''];
-			delete user.lastmessages[''];
-			delete user.lastmessages[user.id];
-			delete user.recent['undefined'];
-			delete user.unread['undefined'];
-			delete user.lastmessages['undefined'];
+			// delete user.recent[''];
+			// delete user.recent[user.id];
+			// delete user.unread[user.id];
+			// delete user.unread[''];
+			// delete user.lastmessages[''];
+			// delete user.lastmessages[user.id];
+			// delete user.recent['undefined'];
+			// delete user.unread['undefined'];
+			// delete user.lastmessages['undefined'];
 		}
 
 		callback(SUCCESS(true));
-	});
+	})
+	// Fs.readFile(F.path.databases('users.json'), function(err, data) {
+	// 	if (err)
+	// 		F.global.users = [];
+	// 	else
+	// 		F.global.users = data.toString('utf8').parseJSON(true);
+
+	// 	for (var i = 0, length = F.global.users.length; i < length; i++) {
+	// 		var user = F.global.users[i];
+	// 		user.online = false;
+
+	// 		if (!user.department)
+	// 			user.department = 'Members';
+
+	// 		!user.lastmessages && (user.lastmessages = {});
+	// 		!user.blacklist && (user.blacklist = {});
+	// 		!user.theme && (user.theme = 'dark');
+
+	// 		// Cleaner for unhandled assignment
+	// 		delete user.recent[''];
+	// 		delete user.recent[user.id];
+	// 		delete user.unread[user.id];
+	// 		delete user.unread[''];
+	// 		delete user.lastmessages[''];
+	// 		delete user.lastmessages[user.id];
+	// 		delete user.recent['undefined'];
+	// 		delete user.unread['undefined'];
+	// 		delete user.lastmessages['undefined'];
+	// 	}
+
+	// 	callback(SUCCESS(true));
+	// });
 });
 
 // Performs notifications for unread messages
-NEWOPERATION('users.notify', function(error, value, callback) {
+NEWOPERATION('users.notify', function (error, value, callback) {
 	F.logger('notifications', 'begin');
 
 	var has = false;
 
-	F.global.users.wait(function(item, next) {
+	F.global.users.wait(function (item, next) {
 
 		if (!item.notifications)
 			return next();
@@ -60,7 +92,7 @@ NEWOPERATION('users.notify', function(error, value, callback) {
 		model.users = [];
 		model.has = false;
 
-		Object.keys(item.unread).forEach(function(id) {
+		Object.keys(item.unread).forEach(function (id) {
 			var unread = F.global.channels.findItem('id', id);
 			if (unread) {
 				count += item.unread[id];
@@ -87,7 +119,7 @@ NEWOPERATION('users.notify', function(error, value, callback) {
 		} else
 			next();
 
-	}, function() {
+	}, function () {
 		F.logger('notifications', 'end');
 		has && OPERATION('users.save', NOOP);
 	});
@@ -95,15 +127,15 @@ NEWOPERATION('users.notify', function(error, value, callback) {
 	callback(SUCCESS(true));
 });
 
-NEWOPERATION('channels.save', function(error, value, callback) {
+NEWOPERATION('channels.save', function (error, value, callback) {
 	callback(SUCCESS(true));
-	setTimeout2('users.save', function() {
+	setTimeout2('users.save', function () {
 		Fs.writeFile(F.path.databases('channels.json'), JSON.stringify(F.global.channels), F.error());
 	}, 500);
 });
 
-NEWOPERATION('channels.load', function(error, value, callback) {
-	Fs.readFile(F.path.databases('channels.json'), function(err, data) {
+NEWOPERATION('channels.load', function (error, value, callback) {
+	Fs.readFile(F.path.databases('channels.json'), function (err, data) {
 		if (err)
 			F.global.channels = [];
 		else
@@ -112,12 +144,12 @@ NEWOPERATION('channels.load', function(error, value, callback) {
 	});
 });
 
-NEWOPERATION('messages.cleaner', function(error, value, callback) {
+NEWOPERATION('messages.cleaner', function (error, value, callback) {
 	callback(SUCCESS(true));
-	setTimeout2(value, function() {
+	setTimeout2(value, function () {
 		var db = NOSQL(value);
 		var max = 200;
-		db.count().callback(function(err, count) {
+		db.count().callback(function (err, count) {
 			if (count > max) {
 				count = count - max;
 				db.remove().prepare((doc, index) => index < count || doc.dateexpired < F.datetime);
@@ -129,7 +161,7 @@ NEWOPERATION('messages.cleaner', function(error, value, callback) {
 const SEND_CLIENT = {};
 const SEND_MESSAGE = {};
 
-NEWOPERATION('send', function(error, value, callback) {
+NEWOPERATION('send', function (error, value, callback) {
 
 	// value.id = ID MESSAGE FOR UPDATE (OPTIONAL)
 	// value.iduser = IDUSER;
@@ -165,8 +197,11 @@ NEWOPERATION('send', function(error, value, callback) {
 });
 
 F.wait('database');
-F.on('ready', function() {
-	setTimeout(() => F.wait('database'), 2000);
-	OPERATION('users.load', NOOP);
-	OPERATION('channels.load', NOOP);
+F.on('ready', function () {
+	setTimeout(() => {
+		F.wait('database');
+		OPERATION('users.load', NOOP);
+		OPERATION('channels.load', NOOP);
+	}, 2000);
+
 });
