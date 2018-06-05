@@ -28,7 +28,7 @@
 <script>
 
 	var favorites = {};
-
+	SETTER('loading', 'show');
 	function favorites_reload() {
 		SET('current.title', '@(Favorites)');
 		SET('current.descripriton', '@(All stored favorites messages)');
@@ -52,6 +52,7 @@
 				marked_iframe(el);
 				highlight(el);
 				UPDATE('common.favorites');
+				SETTER('loading', 'hide', 500);
 			});
 		});
 	}

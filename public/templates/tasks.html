@@ -55,6 +55,7 @@
 		}, tasks_refreshunread);
 
 		SET('common.stats', null);
+		SETTER('loading', 'hide', 500);
 	}
 
 	ON('unread', tasks_refreshunread);

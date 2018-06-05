@@ -54,6 +54,7 @@
 			data.theme = 'dark';
 		SET('settings', data, true);
 		SET('common.stats', null);
+		SETTER('loading', 'hide', 1000);
 	}
 
 	WATCH('settings.theme', function(path, value, type) {
