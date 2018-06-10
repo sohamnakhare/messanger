@@ -2,7 +2,7 @@
 	<script type="text/html">
 		<figure data-id="{{ id }}"{{ if user.me }} class="me"{{ fi }}>
 			<div class="chat-picture center">
-				<a href="{{ if user.me }}javascript:void(0){{ else }}/users/{{ user.linker }}/{{ fi }}" class="jrouting"><img src="/photos/{{ user.picture }}.jpg" alt="{{ user.name }}" class="img-responsive" border="0" /></a>
+				<a href="{{ if user.me }}javascript:void(0){{ else }}/users/{{ user.linker }}/{{ fi }}" class="jrouting"><img src="{{ user.picture }}" alt="{{ user.name }}" class="img-responsive" border="0" /></a>
 				<div class="chat-favorite exec" data-exec="favorites_remove" title="@(Add to favorites)"><i class="fa fa-heart{{ if !favorited }}-o{{ fi }}"></i></div>
 			</div>
 			<div class="chat-body">
