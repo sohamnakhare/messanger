@@ -9,7 +9,6 @@ F.onAuthorize = function (req, res, flags, next) {
 	id && (id = id.substring(0, id.indexOf('|')));
 	if (!id)
 		return next(false);
-
 	var userInCookie = JSON.parse(id);
 
 	MODEL('users').getUser(userInCookie.email, (err, docs) => {
@@ -18,14 +17,16 @@ F.onAuthorize = function (req, res, flags, next) {
 			if (error) {
 				F.global.users = [];
 			} else {
-				F.global.users = allusers;
+				F.global.users = F.global.users.length > 0 ? F.global.users : allusers;
 			}
 
-			const user = docs[0];
+			var user = docs[0];
 			if (!user) {
 				next(false);
 				return;
 			}
+			
+			user = F.global.users.find(item => item.email === user.email);
 
 			var id = user.id;
 			SESSION[id] = user;
