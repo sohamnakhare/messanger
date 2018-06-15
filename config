@@ -19,4 +19,4 @@ mail-smtp                 : YOUR.SMTPSERVER.COM
 // mail-smtp-options         : {"port":587,"secure":false,"user":"ENTER_YOUR_EMAIL","password":"ENTER_YOUR_PASSWORD","tls":{"ciphers":"SSLv3"}}
 
 //mongo database connection string
-database                       : mongodb://localhost:27017/cms
+database                       : mongodb://localhost:27017,localhost:27018?replicaSet=mongo-repl

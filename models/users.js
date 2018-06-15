@@ -65,7 +65,7 @@ NEWSCHEMA('User').make(function (schema) {
 				if (err) {
 					return callback(err);
 				}
-				F.global.users.push(tmp);
+				// F.global.users.push(tmp);
 				F.global.users.quicksort('name');
 				F.global.refresh && F.global.refresh();
 				OPERATION('users.save', NOOP);

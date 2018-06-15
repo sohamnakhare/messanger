@@ -7,9 +7,8 @@ MC.connect(CONFIG('database'), function (err, db) {
 	if (err)
 		throw err;
 	console.log('mongo connected');
-
 	DB = db.db('cms');
-	// watchCollections(DB);
+	watchCollections(DB);
 	F.wait('database');
 });
 
@@ -17,7 +16,10 @@ function watchCollections(db) {
 	const collection = db.collection('users')
 	const changeStream = collection.watch({ fullDocument: 'updateLookup' });
 	changeStream.on('change', function (change) {
-		console.log('chnage: ', change);
+		if(change.operationType === 'insert') {
+			const user = change.fullDocument;
+			F.global.users.push(user);
+		}
 	});
 }
 
