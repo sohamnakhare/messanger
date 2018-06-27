@@ -68,7 +68,7 @@
 
 		function doLogin() {
 			RESET('user.*');
-			AJAX('POST /api/login/', user, function(response) {
+			AJAX('POST /messanger/api/login/', user, function(response) {
 				SET('user.response', response);
 				response.success && location.reload(true);
 			});

@@ -59,7 +59,7 @@
 
 	function users_edit(el) {
 		SETTER('loading', 'show');
-		AJAX('GET /api/users/{0}/'.format(el.attr('data-id')), function(response) {
+		AJAX('GET /messanger/api/users/{0}/'.format(el.attr('data-id')), function(response) {
 
 			SETTER('loading', 'hide', 1000);
 
@@ -98,7 +98,7 @@
 
 	function users_remove(el) {
 		FIND('confirm').confirm('@(Are you sure you want to remove this user?)', ['@(Yes)', '@(Cancel)'], function(index) {
-			!index && AJAX('DELETE /api/users/{0}/'.format(el.attr('data-id')), NOOP);
+			!index && AJAX('DELETE /messanger/api/users/{0}/'.format(el.attr('data-id')), NOOP);
 		});
 	}
 

@@ -35,7 +35,7 @@
 			});
 
 			SETTER('loading', 'show');
-			AJAX('POST /api/blacklist/', blacklist, function() {
+			AJAX('POST /messanger/api/blacklist/', blacklist, function() {
 				UPDATE('current.channels');
 				SET('common.form', '');
 				SETTER('loading', 'hide', 1000);

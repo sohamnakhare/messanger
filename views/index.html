@@ -375,7 +375,7 @@
 				for (var i = 0, length = files.length; i < length; i++)
 					data.append('file' + i, files[i]);
 
-				UPLOAD('/api/upload/', data, function(data, err) {
+				UPLOAD('/messanger/api/upload/', data, function(data, err) {
 
 					SETTER('loading', 'hide', 100);
 
@@ -522,7 +522,7 @@
 
 		ON('clipboardimage', function(base64) {
 			SETTER('loading', 'show');
-			AJAX('POST /api/upload/base64/', { file: base64 }, function(response, err) {
+			AJAX('POST /messanger/api/upload/base64/', { file: base64 }, function(response, err) {
 				SETTER('loading', 'hide', 500);
 				FIND('codemirror').codemirror().replaceSelection('![@(Screenshot from clipboard)](' + response.url + ')');
 			});
