@@ -431,6 +431,13 @@
 
 		ROUTE('/', function() {
 			refresh_place();
+			console.log('inside route /');
+			SET('common.page', 'tasks');
+		});
+
+		ROUTE('/messanger/', function() {
+			refresh_place();
+			console.log('inside route /messanger/');
 			SET('common.page', 'tasks');
 		});
 
