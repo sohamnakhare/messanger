@@ -425,39 +425,33 @@
 			SETTER('websocket', 'send', MSG_UNREAD);
 		});
 
-		ON('404', function() {
-			REDIRECT('/messanger/');
-		});
+		// ON('404', function() {
+		// 	REDIRECT('/messanger/');
+		// });
 
-		ROUTE('/', function() {
-			refresh_place();
-			console.log('inside route /');
-			SET('common.page', 'tasks');
-		});
 
 		ROUTE('/messanger/', function() {
 			refresh_place();
-			console.log('inside route /messanger/');
 			SET('common.page', 'tasks');
 		});
 
-		ROUTE('/favorite/', function() {
+		ROUTE('/messanger/favorite/', function() {
 			refresh_place();
 			SET('common.page', 'favorite');
 		});
 
-		ROUTE('/users/', function() {
+		ROUTE('/messanger/users/', function() {
 			refresh_place();
 			SET('common.search', '');
 			SET('common.page', 'users');
 		});
 
-		ROUTE('/settings/', function() {
+		ROUTE('/messanger/settings/', function() {
 			refresh_place();
 			SET('common.page', 'settings');
 		});
 
-		ROUTE('/channels/{linker}/', function(linker) {
+		ROUTE('/messanger/channels/{linker}/', function(linker) {
 			WAIT(function() {
 				return current.channels !== EMPTYARRAY && MAIN.loaded;
 			}, function() {
@@ -483,7 +477,7 @@
 			});
 		});
 
-		ROUTE('/users/{linker}/', function(linker) {
+		ROUTE('/messanger/users/{linker}/', function(linker) {
 			WAIT(function() {
 				return current.users !== EMPTYARRAY && MAIN.loaded;
 			}, function() {
