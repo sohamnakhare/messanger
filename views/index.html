@@ -77,11 +77,11 @@
 
 			<hr />
 			<nav>
-				<a href="/" class="jrouting"><i class="fa fa-check-circle"></i>@(My Tasks)</a>
-				<a href="/favorite/" class="jrouting"><i class="fa fa-heart"></i>@(Favorites)</a>
-				<a href="/users/" class="jrouting"><i class="fa fa-users"></i>@(Users)</a>
-				<a href="/settings/" class="jrouting"><i class="fa fa-cog"></i>@(Settings)</a>
-				<a href="/logoff/"><i class="fa fa-power-off"></i>@(Sign out)</a>
+				<a href="/messanger/" class="jrouting"><i class="fa fa-check-circle"></i>@(My Tasks)</a>
+				<a href="/messanger/favorite/" class="jrouting"><i class="fa fa-heart"></i>@(Favorites)</a>
+				<a href="/messanger/users/" class="jrouting"><i class="fa fa-users"></i>@(Users)</a>
+				<a href="/messanger/settings/" class="jrouting"><i class="fa fa-cog"></i>@(Settings)</a>
+				<a href="/messanger/logoff/"><i class="fa fa-power-off"></i>@(Sign out)</a>
 			</nav>
 			<br />
 		</div>
@@ -106,11 +106,11 @@
 			</div>
 		</header>
 		<div id="content">
-			<div data-jc="page" data-jc-path="common.page" data-if="tasks" data-template="/templates/tasks.html" data-reload="tasks_reload"></div>
-			<div data-jc="page" data-jc-path="common.page" data-if="favorite" data-template="/templates/favorite.html" data-reload="favorites_reload"></div>
-			<div data-jc="page" data-jc-path="common.page" data-if="chat" data-template="/templates/chat.html" data-reload="chat_reload"></div>
-			<div data-jc="page" data-jc-path="common.page" data-if="users" data-template="/templates/users.html" data-reload="users_reload"></div>
-			<div data-jc="page" data-jc-path="common.page" data-if="settings" data-template="/templates/settings.html" data-reload="settings_reload"></div>
+			<div data-jc="page" data-jc-path="common.page" data-if="tasks" data-template="/messanger/templates/tasks.html" data-reload="tasks_reload"></div>
+			<div data-jc="page" data-jc-path="common.page" data-if="favorite" data-template="/messanger/templates/favorite.html" data-reload="favorites_reload"></div>
+			<div data-jc="page" data-jc-path="common.page" data-if="chat" data-template="/messanger/templates/chat.html" data-reload="chat_reload"></div>
+			<div data-jc="page" data-jc-path="common.page" data-if="users" data-template="/messanger/templates/users.html" data-reload="users_reload"></div>
+			<div data-jc="page" data-jc-path="common.page" data-if="settings" data-template="/messanger/templates/settings.html" data-reload="settings_reload"></div>
 			@{components('messenger')}
 		</div>
 		<div id="messagebox">
@@ -133,12 +133,12 @@
 		</div>
 	</section>
 
-	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'formuser'" data-url="/forms/formuser.html" data-reload="formuser_reload"></div>
-	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'formchannel'" data-url="/forms/formchannel.html" data-reload="formchannel_reload"></div>
-	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'searchresults'" data-url="/forms/searchresults.html" data-reload="searchresults_reload"></div>
-	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'help'" data-url="/forms/help.html"></div>
-	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'files'" data-url="/forms/files.html" data-reload="files_reload"></div>
-	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'formblacklist'" data-url="/forms/formblacklist.html" data-reload="formblacklist_reload"></div>
+	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'formuser'" data-url="/messanger/forms/formuser.html" data-reload="formuser_reload"></div>
+	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'formchannel'" data-url="/messanger/forms/formchannel.html" data-reload="formchannel_reload"></div>
+	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'searchresults'" data-url="/messanger/forms/searchresults.html" data-reload="searchresults_reload"></div>
+	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'help'" data-url="/messanger/forms/help.html"></div>
+	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'files'" data-url="/messanger/forms/files.html" data-reload="files_reload"></div>
+	<div data-jc="importer" data-jc-path="common.form" data-if="value === 'formblacklist'" data-url="/messanger/forms/formblacklist.html" data-reload="formblacklist_reload"></div>
 
 	<input type="file" id="uploadfile" class="hidden" />
 
