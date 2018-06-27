@@ -24,7 +24,9 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/favico.js/0.3.10/favico.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
-	@{import('meta', 'default.css', 'default.js', 'favicon.ico', 'head')}
+	<script src="/messanger/js/default.js"></script>
+	<link rel="stylesheet" href="/messanger/css/default.css"></script>
+	@{import('meta', 'favicon.ico', 'head')}
 </head>
 <body data-jc="exec,binder" class="theme-@{user.theme}@{if user.sa} sa@{fi}">
 
