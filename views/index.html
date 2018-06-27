@@ -429,28 +429,28 @@
 			REDIRECT('/messanger/');
 		});
 
-		ROUTE('/messanger/', function() {
+		ROUTE('/messagner/', function() {
 			refresh_place();
 			SET('common.page', 'tasks');
 		});
 
-		ROUTE('/favorite/', function() {
+		ROUTE('/messagner/favorite/', function() {
 			refresh_place();
 			SET('common.page', 'favorite');
 		});
 
-		ROUTE('/users/', function() {
+		ROUTE('/messagner/users/', function() {
 			refresh_place();
 			SET('common.search', '');
 			SET('common.page', 'users');
 		});
 
-		ROUTE('/settings/', function() {
+		ROUTE('/messagner/settings/', function() {
 			refresh_place();
 			SET('common.page', 'settings');
 		});
 
-		ROUTE('/channels/{linker}/', function(linker) {
+		ROUTE('/messagner/channels/{linker}/', function(linker) {
 			WAIT(function() {
 				return current.channels !== EMPTYARRAY && MAIN.loaded;
 			}, function() {
@@ -476,7 +476,7 @@
 			});
 		});
 
-		ROUTE('/users/{linker}/', function(linker) {
+		ROUTE('/messagner/users/{linker}/', function(linker) {
 			WAIT(function() {
 				return current.users !== EMPTYARRAY && MAIN.loaded;
 			}, function() {
