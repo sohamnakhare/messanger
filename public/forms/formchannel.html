@@ -24,7 +24,7 @@
 			if (index)
 				return;
 			AJAX('DELETE /api/channels/{0}/'.format(formchannel.id), NOOP);
-			REDIRECT('/');
+			REDIRECT('messanger/');
 			SET('common.form', '');
 		});
 	}

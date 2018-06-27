@@ -200,7 +200,7 @@
 			var tmp;
 			switch (el.attr('data-name')) {
 				case 'users':
-					REDIRECT('/users/');
+					REDIRECT('messanger/users/');
 					break;
 				case 'channel':
 					tmp = current.channels.findItem('id', el.parent().attr('data-id'));
@@ -426,7 +426,7 @@
 		});
 
 		ON('404', function() {
-			REDIRECT('/');
+			REDIRECT('messanger/');
 		});
 
 		ROUTE('/', function() {
@@ -457,7 +457,7 @@
 				var item = current.channels.findItem('linker', linker);
 				if (item) {
 					if (user.channels && !user.channels[item.id])
-						return REDIRECT('/');
+						return REDIRECT('messanger/');
 					current.route.type = 'channel';
 					current.route.item = item;
 					MSG_MESSAGE.id = undefined;
@@ -472,7 +472,7 @@
 					refresh_mute();
 					is && refresh_unread();
 				} else
-					REDIRECT('/');
+					REDIRECT('messanger/');
 			});
 		});
 
@@ -498,7 +498,7 @@
 					refresh_mute();
 					is && refresh_unread();
 				} else
-					REDIRECT('/');
+					REDIRECT('messanger/');
 			});
 		});
 
