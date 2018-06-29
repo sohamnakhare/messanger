@@ -15,8 +15,8 @@
 				<div class="col-lg-2 col-md-4 col-xs-6 m jsearch{{ if picture && picture !== 'face' }} jlazyload{{ fi }}" data-search="{{ name }}">
 					<a href="{{ if me }}javascript:void(0){{ else }}/messanger/users/{{ linker }}/{{ fi }}"
 						class="users-name singleline{{ if !me }} jrouting{{ fi }}">
-						<img src="/photos/face.jpg"
-							data-src="{{ if picture }}{{ picture }}{{ else }}/img/face.jpg{{ fi }}"
+						<img src="/messanger/photos/face.jpg"
+							data-src="{{ if picture }}{{ picture }}{{ else }}/messanger/img/face.jpg{{ fi }}"
 							class="mr5 img-lazyload" height="20" />{{ name }}</a>
 					<div class="fs11 mt5 singleline b black">{{ position }}</div>
 					<div class="fs11 singleline"><i class="fa fa-circle mr5 useronline{{ if online }} online{{ fi }}" data-id="{{ id }}"></i>{{ status | def('...') }}</div>

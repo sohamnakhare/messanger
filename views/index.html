@@ -60,7 +60,7 @@
 				<nav data-jc="repeater" data-jc-path="current.channels" class="nav-channels">
 					<script type="text/html">
 						{{ if is && visible }}
-						<a href="/channels/{{ linker }}/" class="jrouting jsearch" data-id="{{ id }}" data-search="{{ name }}">@{if user.sa }<span class="operation" data-name="channel"><i class="fa fa-pencil"></i></span>@{fi}<i class="fa fa-hashtag"></i>{{ name }}</a>
+						<a href="/messanger/channels/{{ linker }}/" class="jrouting jsearch" data-id="{{ id }}" data-search="{{ name }}">@{if user.sa }<span class="operation" data-name="channel"><i class="fa fa-pencil"></i></span>@{fi}<i class="fa fa-hashtag"></i>{{ name }}</a>
 						{{ fi }}
 					</script>
 				</nav>
@@ -69,7 +69,7 @@
 				<nav data-jc="repeater" data-jc-path="current.recent" class="nav-users">
 					<script type="text/html">
 						{{ if !me }}
-						<a href="/users/{{ linker }}/" class="jrouting jsearch" data-search="{{ name }}" data-id="{{ id }}"><span class="operation" data-name="recent"><i class="fa fa-times"></i></span><i class="fa useronline fa-circle {{ if online }}online{{ fi }}" data-id="{{ id }}"></i>{{ name }}</a>
+						<a href="/messanger/users/{{ linker }}/" class="jrouting jsearch" data-search="{{ name }}" data-id="{{ id }}"><span class="operation" data-name="recent"><i class="fa fa-times"></i></span><i class="fa useronline fa-circle {{ if online }}online{{ fi }}" data-id="{{ id }}"></i>{{ name }}</a>
 						{{ fi }}
 					</script>
 				</nav>
@@ -126,7 +126,7 @@
 				<div class="border black exec" data-exec="codemirror_enter"><i class="fa fa-keyboard-o mr5"></i><span data-b="common.enter" data-b-html="n => n ? '@(Enter)' : '@(CTRL+Enter)'"></span></div>
 				<div data-jc="typing">
 					<script type="text/html">
-						<div data-id="{{ id }}"><img src="/photos/{{ picture }}.jpg" height="18" alt="{{ name }}" /><b>{{ name }}</b> @(is typing.)</div>
+						<div data-id="{{ id }}"><img src="/messanger/photos/{{ picture }}.jpg" height="18" alt="{{ name }}" /><b>{{ name }}</b> @(is typing.)</div>
 					</script>
 				</div>
 			</div>
@@ -563,7 +563,7 @@
 		}
 
 		function playsound() {
-			common.sounds && SETTER('audio', 'play', '/sounds/knockknock.mp3');
+			common.sounds && SETTER('audio', 'play', '/messanger/sounds/knockknock.mp3');
 		}
 
 		function refresh_unread(nosound) {
