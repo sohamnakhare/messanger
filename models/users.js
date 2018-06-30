@@ -7,7 +7,7 @@ NEWSCHEMA('User').make(function (schema) {
 	schema.define('status', 'String(50)');
 	schema.define('position', 'String(30)', true);
 	schema.define('department', 'String(30)', true);
-	schema.define('picture', String);
+	schema.define('picture', 'String');
 	schema.define('channels', 'Object');
 	schema.define('blocked', Boolean);
 	schema.define('notifications', Boolean);
