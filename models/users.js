@@ -128,7 +128,7 @@ exports.UserModel = function (id = '', name = '', email = '', roles = [], status
 	this.blocked = blocked;
 	this.notifications = notifications;
 	this.sa = sa;
-	this.linker = linker ? linker : email;
+	this.linker = tmp.linker = model.name.slug();
 	this.mobile = mobile;
 	this.unread = {};
 	this.recent = {};

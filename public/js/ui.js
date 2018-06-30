@@ -1993,7 +1993,7 @@ COMPONENT('nativenotifications', function() {
 		self.autoclose();
 
 		if (img === undefined)
-			options.icon = '/icon.png';
+			options.icon = '/messenger/icon.png';
 		else if (img != null)
 			options.icon = img;
 
