@@ -2,7 +2,7 @@ NEWSCHEMA('Account').make(function(schema) {
 
 	schema.define('name', 'String(50)', true);
 	schema.define('email', 'Email', true);
-	schema.define('picture', 'String(30)');
+	schema.define('picture', 'String');
 	schema.define('notifications', Boolean);
 	schema.define('citizenship', 'String(30)');
 	schema.define('currentJob', 'String(30)');
@@ -36,7 +36,7 @@ NEWSCHEMA('Account').make(function(schema) {
 						return callback(SUCCESS(true));
 					}
 					OPERATION('users.save', NOOP);
-					notify && F.global.refresh && F.global.refresh();
+					F.global.refresh();
 					return callback(SUCCESS(true));
 				});
 				return;
