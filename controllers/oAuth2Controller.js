@@ -56,7 +56,6 @@ function oauth_login_facebook_callback() {
             var email = profile.email;
             OPERATION('admin.notify', { type: 'admin.login', message: email });
             setCookies(profile, email, 'facebook', self);
-            console.log('profile: ', profile)
         });
 }
 
@@ -105,12 +104,12 @@ function setCookies(profile, email, type, controller) {
         if (!user) {
             registerUser(profile, type, (err, newUser) => {
                 if (err) {
-                    controller.redirect('/settings/');
+                    controller.redirect('/messenger/');
                     return;
                 }
                 setGlobalCookie(newUser, controller);
                 setAllUsersGlobally(function () {
-                    controller.redirect('/settings/');
+                    controller.redirect('/messenger/');
                 });
             });
             return;
@@ -118,7 +117,7 @@ function setCookies(profile, email, type, controller) {
 
         setGlobalCookie(user, controller);
         setAllUsersGlobally(function () {
-            controller.redirect('/admin/');
+            controller.redirect('/messenger/');
         });
     });
 }
