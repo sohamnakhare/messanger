@@ -23,8 +23,8 @@
 		FIND('confirm').confirm('@(Are you sure you want to remove selected channel?)', ['@(Yes)', '@(Cancel)'], function(index) {
 			if (index)
 				return;
-			AJAX('DELETE /messanger/api/channels/{0}/'.format(formchannel.id), NOOP);
-			REDIRECT('/messanger/');
+			AJAX('DELETE /messenger/api/channels/{0}/'.format(formchannel.id), NOOP);
+			REDIRECT('/messenger/');
 			SET('common.form', '');
 		});
 	}
@@ -34,7 +34,7 @@
 			if (BLOCKED('formchannel', 2000) || !jC.valid('formchannel.*'))
 				return;
 			RESET('formchannel.*');
-			AJAX('POST /messanger/api/channels/', formchannel, function() {
+			AJAX('POST /messenger/api/channels/', formchannel, function() {
 				SETTER('message', 'success', '@(The channel has been created successfully.)');
 				SET('common.form', '');
 			});

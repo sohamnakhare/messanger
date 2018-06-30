@@ -13,10 +13,10 @@
 		<div data-jc="repeater-group" data-jc-path="users.items" data-group="department" class="users row">
 			<script type="text/html">
 				<div class="col-lg-2 col-md-4 col-xs-6 m jsearch{{ if picture && picture !== 'face' }} jlazyload{{ fi }}" data-search="{{ name }}">
-					<a href="{{ if me }}javascript:void(0){{ else }}/messanger/users/{{ linker }}/{{ fi }}"
+					<a href="{{ if me }}javascript:void(0){{ else }}/messenger/users/{{ linker }}/{{ fi }}"
 						class="users-name singleline{{ if !me }} jrouting{{ fi }}">
-						<img src="/messanger/photos/face.jpg"
-							data-src="{{ if picture }}{{ picture }}{{ else }}/messanger/img/face.jpg{{ fi }}"
+						<img src="/messenger/photos/face.jpg"
+							data-src="{{ if picture }}{{ picture }}{{ else }}/messenger/img/face.jpg{{ fi }}"
 							class="mr5 img-lazyload" height="20" />{{ name }}</a>
 					<div class="fs11 mt5 singleline b black">{{ position }}</div>
 					<div class="fs11 singleline"><i class="fa fa-circle mr5 useronline{{ if online }} online{{ fi }}" data-id="{{ id }}"></i>{{ status | def('...') }}</div>
@@ -59,7 +59,7 @@
 
 	function users_edit(el) {
 		SETTER('loading', 'show');
-		AJAX('GET /messanger/api/users/{0}/'.format(el.attr('data-id')), function(response) {
+		AJAX('GET /messenger/api/users/{0}/'.format(el.attr('data-id')), function(response) {
 
 			SETTER('loading', 'hide', 1000);
 
@@ -98,7 +98,7 @@
 
 	function users_remove(el) {
 		FIND('confirm').confirm('@(Are you sure you want to remove this user?)', ['@(Yes)', '@(Cancel)'], function(index) {
-			!index && AJAX('DELETE /messanger/api/users/{0}/'.format(el.attr('data-id')), NOOP);
+			!index && AJAX('DELETE /messenger/api/users/{0}/'.format(el.attr('data-id')), NOOP);
 		});
 	}
 

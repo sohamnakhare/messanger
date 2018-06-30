@@ -15,7 +15,9 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/codemirror.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
-	@{import('default.css', 'default.js', 'favicon.ico')}
+	<script src="/messenger/js/default.js"></script>
+	<link rel="stylesheet" href="/messenger/css/default.css"></script>
+	@{import('favicon.ico')}
 
 	<style>
 		.social-oauth2 div { text-align: center; }
@@ -46,7 +48,7 @@
 			</div> -->
 			<div class="row social-oauth2">
 				<div class="col-md-12 col-sm-12 col-xs-12">
-					<a href="/login/google/">
+					<a href="/messenger/login/google/">
 						<span class="fa fa-google-plus"></span>
 						<b>Sign in with Google+</b>
 					</a>
@@ -68,7 +70,7 @@
 
 		function doLogin() {
 			RESET('user.*');
-			AJAX('POST /messanger/api/login/', user, function(response) {
+			AJAX('POST /messenger/api/login/', user, function(response) {
 				SET('user.response', response);
 				response.success && location.reload(true);
 			});

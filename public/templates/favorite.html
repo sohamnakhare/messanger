@@ -39,7 +39,7 @@
 		WAIT(function() {
 			return current.users !== EMPTYARRAY;
 		}, function() {
-			AJAX('GET /messanger/api/favorites/', function(response) {
+			AJAX('GET /messenger/api/favorites/', function(response) {
 				common.favorites = {};
 				response.forEach(function(item) {
 					item.user = current.users.findItem('id', item.iduser);
@@ -62,7 +62,7 @@
 		var id = parent.attr('data-id');
 		delete common.favorites[id];
 		REWRITE('favorites.items', favorites.items.remove('id', id));
-		AJAX('DELETE /messanger/api/favorites/{0}/'.format(id), NOOP);
+		AJAX('DELETE /messenger/api/favorites/{0}/'.format(id), NOOP);
 		parent.remove();
 	}
 

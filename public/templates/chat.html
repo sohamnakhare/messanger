@@ -92,7 +92,7 @@
 		MSG_ROUTE.id = current.route.item.id;
 		CHATFILTER.page = page || 1;
 		SETTER('loading', 'show');
-		AJAX('GET /messanger/api/messages/{0}/'.format((MSG_ROUTE.type === 'channel' ? 'channel' : 'user') + MSG_ROUTE.id), CHATFILTER, function(response, err) {
+		AJAX('GET /messenger/api/messages/{0}/'.format((MSG_ROUTE.type === 'channel' ? 'channel' : 'user') + MSG_ROUTE.id), CHATFILTER, function(response, err) {
 
 			if (err)
 				return;
@@ -137,7 +137,7 @@
 		CHATSEARCH.q = value;
 
 		SETTER('loading', 'show');
-		AJAX('GET /messanger/api/messages/{0}/'.format((MSG_ROUTE.type === 'channel' ? 'channel' : 'user') + MSG_ROUTE.id), CHATSEARCH, function(response) {
+		AJAX('GET /messenger/api/messages/{0}/'.format((MSG_ROUTE.type === 'channel' ? 'channel' : 'user') + MSG_ROUTE.id), CHATSEARCH, function(response) {
 			SETTER('loading', 'hide', 1000);
 
 			var items = response.items;
@@ -358,11 +358,11 @@
 						msg.favorited = undefined;
 						msg.idowner = undefined;
 						common.favorites[msg.id] = true;
-						AJAX('POST /messanger/api/favorites/', msg, NOOP);
+						AJAX('POST /messenger/api/favorites/', msg, NOOP);
 					} else if (message.favorited) {
 						message.favorited = false;
 						delete common.favorites[message.id];
-						AJAX('DELETE /messanger/api/favorites/{0}/'.format(message.id), NOOP);
+						AJAX('DELETE /messenger/api/favorites/{0}/'.format(message.id), NOOP);
 					}
 					UPDATE('common.favorites');
 				}, 1000);
@@ -389,7 +389,7 @@
 
 	function chat_export() {
 		SETTER('loading', 'show');
-		AJAX('GET /messanger/api/messages/{0}/'.format((MSG_ROUTE.type === 'channel' ? 'channel' : 'user') + MSG_ROUTE.id), { max: 100 }, function(response) {
+		AJAX('GET /messenger/api/messages/{0}/'.format((MSG_ROUTE.type === 'channel' ? 'channel' : 'user') + MSG_ROUTE.id), { max: 100 }, function(response) {
 
 			var divider = '---------------------------------------------------------------';
 			var builder = [];

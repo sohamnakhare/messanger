@@ -3,7 +3,7 @@
 
 		<div class="row">
 			<div class="col-md-4 center">
-				<div data-jc="pictureupload" data-jc-path="formuser.picture" data-width="200" data-height="200" data-url="/messanger/api/upload/photo/" class="auto center" data-path="/photos/{0}.jpg"></div>
+				<div data-jc="pictureupload" data-jc-path="formuser.picture" data-width="200" data-height="200" data-url="/messenger/api/upload/photo/" class="auto center" data-path="/photos/{0}.jpg"></div>
 				<p class="fs11 silver">@(Drag & Drop photo or click on<br />the picture above.)</p>
 			</div>
 			<div class="col-md-8 bl">
@@ -98,7 +98,7 @@
 		} else
 			formuser.channels = null;
 
-		AJAX('POST /messanger/api/users/', formuser, function() {
+		AJAX('POST /messenger/api/users/', formuser, function() {
 			SETTER('message', 'success', '@(The user profile has been saved successfully.)');
 			SET('common.form', '');
 		});

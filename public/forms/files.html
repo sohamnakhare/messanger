@@ -39,7 +39,7 @@
 
 	function files_reload() {
 		SETTER('loading', 'show');
-		AJAX('GET /messanger/api/files/{0}/'.format((MSG_ROUTE.type === 'channel' ? 'channel' : 'user') + MSG_ROUTE.id), FILESFILTER, function(response) {
+		AJAX('GET /messenger/api/files/{0}/'.format((MSG_ROUTE.type === 'channel' ? 'channel' : 'user') + MSG_ROUTE.id), FILESFILTER, function(response) {
 			response.forEach(function(item) {
 				item.user = current.users.findItem('id', item.iduser);
 			});
