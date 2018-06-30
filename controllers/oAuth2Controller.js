@@ -75,7 +75,7 @@ function setGlobalCookie(user, controller) {
     user = Object.assign({}, new User(), user);
     var globalCookie = F.encrypt( JSON.stringify(user) + '|' + controller.ip + '|' + F.datetime.getTime());
     controller.cookie(CONFIG('global-cookie'), globalCookie, '1 month');
-    controller.cookie(CONFIG('cookie'), globalCookie, '1 month'); 
+   // controller.cookie(CONFIG('cookie'), globalCookie, '1 month'); 
 }
 
 function setAllUsersGlobally(next) {
