@@ -47,8 +47,8 @@ NEWSCHEMA('User').make(function (schema) {
 			tmp.recent = {};
 			tmp.lastmessages = {};
 			tmp.online = false;
-			// tmp.linker = model.name.slug();
-			tmp.linker = tmp.email;
+			tmp.linker = model.name.slug();
+			// tmp.linker = tmp.email;
 			tmp.sa = model.sa;
 			tmp.theme = 'dark';
 			isNewUser = true;
