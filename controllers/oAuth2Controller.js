@@ -4,7 +4,7 @@ const OAUTH_CLIENT_SECRET = 'QgBE4Uplms4-zOGVLh1vMKDi';
 const FACEBOOK_APPID = '381736985661759';
 const FACEBOOK_SECRET = 'af02a082d64ac33476fb16f7f1c93c77';
 
-exports.install = function() { 
+exports.install = function () {
     F.route('/login/google/', oauth_login, ['unauthorize']);
     F.route('/login/google/callback/', oauth_login_callback, ['unauthorize']);
     F.route('/login/facebook/', oauth_login_facebook, ['unauthorize']);
@@ -15,7 +15,7 @@ function oauth_login() {
     var self = this;
     var type = self.req.path[1];
 
-    self.host(F.config.base_path_assets+
+    self.host(F.config.base_path_assets +
         '/login/google/callback/')
 
     MODULE('oauth2').redirect(type, OAUTH_CLIENTID,
@@ -28,18 +28,18 @@ function oauth_login_callback() {
     var url = self.host('/messenger/login/' + type + '/callback/');
 
     MODULE('oauth2').callback(type, OAUTH_CLIENTID, OAUTH_CLIENT_SECRET, url, self,
-        function(err, profile, access_token) {
+        function (err, profile, access_token) {
             var email = profile.emails[0].value;
-            OPERATION('admin.notify', { type: 'admin.login', message: email});
-            setCookies(profile, email, self);
-    });
+            OPERATION('admin.notify', { type: 'admin.login', message: email });
+            setCookies(profile, email, 'google', self);
+        });
 }
 
 function oauth_login_facebook() {
     var self = this;
     var type = self.req.path[1];
 
-    self.host(F.config.base_path_assets+
+    self.host(F.config.base_path_assets +
         '/login/facebook/callback/')
 
     MODULE('oauth2').redirect(type, FACEBOOK_APPID,
@@ -52,41 +52,64 @@ function oauth_login_facebook_callback() {
     var url = self.host('/messenger/login/' + type + '/callback/');
 
     MODULE('oauth2').callback(type, FACEBOOK_APPID, FACEBOOK_SECRET, url, self,
-        function(err, profile, access_token) {
-            // var email = profile.emails[0].value;
-            // OPERATION('admin.notify', { type: 'admin.login', message: email});
-            // setCookies(profile, email, self);
-            console.log('profile: ', profile);
-    });
+        function (err, profile, access_token) {
+            var email = profile.email;
+            OPERATION('admin.notify', { type: 'admin.login', message: email });
+            setCookies(profile, email, 'facebook', self);
+            console.log('profile: ', profile)
+        });
 }
 
-function registerUser(profile, callback){
-    const name = (profile.name.givenName || '') + ' ' + (profile.name.familyName || '');
-    const email = profile.emails[0].value;
-    const User = MODEL('users').UserModel;
-    const user = new User(UID(), name, email, ['Profile']);
-    user.picture = profile.image.url;
+function registerUser(profile, type, callback) {
+
+    var user = ((authType) => {
+        switch (authType) {
+            case 'facebook':
+                return getUserFacebook(profile);
+            case 'google':
+                return getUserGoogle(profile);
+        }
+    })(type);
+
     var users = DATABASE('users');
-    users.insertOne(user, (err, results)=>{
-        if(err) {
+    users.insertOne(user, (err, results) => {
+        if (err) {
             return callback(err);
         }
         return callback(null, user);
     });
 }
 
-function setCookies(profile, email, controller) {
+function getUserFacebook(profile) {
+    const name = profile.name;
+    const email = profile.email;
+    const User = MODEL('users').UserModel;
+    const user = new User(UID(), name, email, ['Profile']);
+    user.picture = profile.picture.data.url;
+    return user;
+}
+
+function getUserGoogle(profile) {
+    const name = (profile.name.givenName || '') + ' ' + (profile.name.familyName || '');
+    const email = profile.emails[0].value;
+    const User = MODEL('users').UserModel;
+    const user = new User(UID(), name, email, ['Profile']);
+    user.picture = profile.image.url;
+    return user;
+}
+
+function setCookies(profile, email, type, controller) {
     var users = DATABASE('users');
-    users.find({email: email}).toArray(function(err, docs) {
+    users.find({ email: email }).toArray(function (err, docs) {
         var user = docs[0];
-        if(!user) {
-            registerUser(profile, (err, newUser)=>{
-                if(err) {
+        if (!user) {
+            registerUser(profile, type, (err, newUser) => {
+                if (err) {
                     controller.redirect('/settings/');
                     return;
                 }
                 setGlobalCookie(newUser, controller);
-                setAllUsersGlobally(function(){
+                setAllUsersGlobally(function () {
                     controller.redirect('/settings/');
                 });
             });
@@ -94,7 +117,7 @@ function setCookies(profile, email, controller) {
         }
 
         setGlobalCookie(user, controller);
-        setAllUsersGlobally(function(){
+        setAllUsersGlobally(function () {
             controller.redirect('/admin/');
         });
     });
@@ -103,17 +126,17 @@ function setCookies(profile, email, controller) {
 function setGlobalCookie(user, controller) {
     const User = MODEL('users').UserModel;
     user = Object.assign({}, new User(), user);
-    var globalCookie = F.encrypt( JSON.stringify(user) + '|' + controller.ip + '|' + F.datetime.getTime());
+    var globalCookie = F.encrypt(JSON.stringify(user) + '|' + controller.ip + '|' + F.datetime.getTime());
     controller.cookie(CONFIG('global-cookie'), globalCookie, '1 month');
-   // controller.cookie(CONFIG('cookie'), globalCookie, '1 month'); 
+    // controller.cookie(CONFIG('cookie'), globalCookie, '1 month'); 
 }
 
 function setAllUsersGlobally(next) {
     var users = DATABASE('users');
-    users.find().toArray(function(err, docs){
-        if(err) {
+    users.find().toArray(function (err, docs) {
+        if (err) {
             F.global.users = [];
-            return next();    
+            return next();
         }
         F.global.users = docs;
         return next();
