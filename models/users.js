@@ -29,9 +29,9 @@ NEWSCHEMA('User').make(function (schema) {
 			tmp.department = model.department;
 			tmp.picture = model.picture;
 			tmp.blocked = model.blocked;
-			// var linker = model.name.slug(); // beacause of unicodes (e.g. Chinese chars)
-			// linker && (tmp.linker = linker);
-			tmp.linker = model.email;
+			var linker = model.name.slug(); // beacause of unicodes (e.g. Chinese chars)
+			linker && (tmp.linker = linker);
+			// tmp.linker = model.email;
 			tmp.channels = model.channels;
 			tmp.status = model.status;
 			tmp.notifications = model.notifications;
@@ -47,8 +47,8 @@ NEWSCHEMA('User').make(function (schema) {
 			tmp.recent = {};
 			tmp.lastmessages = {};
 			tmp.online = false;
-			// tmp.linker = model.name.slug();
-			tmp.linker = tmp.email;
+			tmp.linker = model.name.slug();
+			// tmp.linker = tmp.email;
 			tmp.sa = model.sa;
 			tmp.theme = 'dark';
 			isNewUser = true;
