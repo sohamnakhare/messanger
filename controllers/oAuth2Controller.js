@@ -10,13 +10,17 @@ function oauth_login() {
     var self = this;
     var type = self.req.path[1];
 
-    MODULE('oauth2').redirect(type, OAUTH_CLIENTID, self.host('/login/' + type + '/callback/'), self);
+    self.host(F.config.base_path_assets+
+        '/login/google/callback/')
+
+    MODULE('oauth2').redirect(type, OAUTH_CLIENTID,
+        self.host('/messenger/login/google/callback/'), self);
 }
 
 function oauth_login_callback() {
     var self = this;
     var type = self.req.path[1];
-    var url = self.host('/login/' + type + '/callback/');
+    var url = self.host('/messenger/login/' + type + '/callback/');
 
     MODULE('oauth2').callback(type, OAUTH_CLIENTID, OAUTH_CLIENT_SECRET, url, self,
         function(err, profile, access_token) {
