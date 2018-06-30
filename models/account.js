@@ -36,6 +36,13 @@ NEWSCHEMA('Account').make(function(schema) {
 						return callback(SUCCESS(true));
 					}
 					OPERATION('users.save', NOOP);
+					var i = F.global.users.findIndex((userObj) => {
+						return user.email === userObj.email
+					});
+					if (i != -1) {
+						const oldUser = Object.assign({}, F.global.users[i]);
+						F.global.users[i] = Object.assign({}, oldUser, user);
+					}
 					F.global.refresh();
 					return callback(SUCCESS(true));
 				});
