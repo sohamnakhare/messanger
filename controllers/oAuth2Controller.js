@@ -39,17 +39,15 @@ function oauth_login_facebook() {
     var self = this;
     var type = self.req.path[1];
 
-    self.host(F.config.base_path_assets+
-        '/login/facebook/callback/')
-
-    MODULE('oauth2').redirect(type, FACEBOOK_APPID,
-        self.host('/messenger/login/facebook/callback/'), self);
+	const url = self.host('/messenger/login/facebook/callback/').replace('http', 'https');  
+	console.log('url: ',url);
+    MODULE('oauth2').redirect(type, FACEBOOK_APPID, url, self);
 }
 
 function oauth_login_facebook_callback() {
     var self = this;
     var type = self.req.path[1];
-    var url = self.host('/messenger/login/' + type + '/callback/');
+    var url = self.host('/messenger/login/' + type + '/callback/').replace('http', 'https');
 
     MODULE('oauth2').callback(type, FACEBOOK_APPID, FACEBOOK_SECRET, url, self,
         function(err, profile, access_token) {
@@ -57,6 +55,8 @@ function oauth_login_facebook_callback() {
             // OPERATION('admin.notify', { type: 'admin.login', message: email});
             // setCookies(profile, email, self);
             console.log('profile: ', profile);
+console.log('err: ', err);
+console.log('access token: ', access_token);
     });
 }
 
