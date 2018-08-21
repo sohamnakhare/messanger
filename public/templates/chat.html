@@ -197,6 +197,11 @@
 				item.favorited = item.favorite = common.favorites[item.id];
 				item.read = last ? newest(last, item.id) : false;
 
+				// adjusting url behing ngnix
+				if(item.files) {
+					item.body = item.body.replace('/download/', '/messenger/download/')
+				}
+
 				if (item.body !== ':thumbs-up:') {
 					tmp.length && self.insert_likes(tmp, builder);
 					tmp = [];
@@ -265,6 +270,11 @@
 				item.me && (chat.lastmessage = item);
 				item.favorited = item.favorite = common.favorites[item.id];
 				item.read = last ? newest(last, item.id) : false;
+
+				// adjusting url behing ngnix
+				if(item.files) {
+					item.body = item.body.replace('/download/', '/messenger/download/')
+				}
 
 				if (item.body !== ':thumbs-up:') {
 					tmp.length && self.insert_likes(tmp, builder);
