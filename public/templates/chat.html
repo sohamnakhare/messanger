@@ -98,7 +98,7 @@
 				return;
 
 			var items = response.items;
-
+			console.log('items: 101: ', items);
 			SET('common.stats', response.stats);
 			common.history = items;
 
@@ -141,7 +141,7 @@
 			SETTER('loading', 'hide', 1000);
 
 			var items = response.items;
-
+			console.log('items: 144: ', items);
 			items.forEach(function(item) {
 				item.user = current.users.findItem('id', item.iduser);
 			});
@@ -187,7 +187,7 @@
 			var last = user.lastmessages[MSG_ROUTE.id];
 
 			value.forEach(function(item) {
-				console.log('item: ', item);
+
 				item.me = user.id === item.iduser;
 				item.user = current.users.findItem('id', item.iduser);
 
@@ -401,6 +401,7 @@
 			builder.push(divider);
 
 			response = response.items;
+			console.log('items: 404: ', response);
 			response.reverse();
 
 			response.forEach(function(item) {
