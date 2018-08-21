@@ -463,7 +463,7 @@
 					current.route.item = item;
 					MSG_MESSAGE.id = undefined;
 					SET('current.title', '#' + item.name);
-					SET('current.description', 'from: '+item.citizenship);
+					SET('current.description', 'from: '+(item.citizenship || '--'));
 					SET('common.search', '');
 					SET('common.page', 'chat');
 					SET('chat.secret', CACHE('secret.' + current.route.item.id) ? true : false);

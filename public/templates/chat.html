@@ -187,7 +187,7 @@
 			var last = user.lastmessages[MSG_ROUTE.id];
 
 			value.forEach(function(item) {
-
+				console.log('item: ', item);
 				item.me = user.id === item.iduser;
 				item.user = current.users.findItem('id', item.iduser);
 
