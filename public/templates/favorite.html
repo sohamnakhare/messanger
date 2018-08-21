@@ -45,6 +45,11 @@
 					item.user = current.users.findItem('id', item.iduser);
 					item.favorited = true;
 					common.favorites[item.id] = true;
+
+					// adjusting url behing ngnix
+					if(item.files) {
+						item.body = item.body.replace('/download/', '/messenger/download/')
+					}
 				});
 				SET('favorites.items', response);
 				var el = $('.favorites');
