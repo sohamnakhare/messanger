@@ -47,9 +47,7 @@
 					common.favorites[item.id] = true;
 
 					// adjusting url behing ngnix
-					if(item.files) {
-						item.body = item.body.replace('/download/', '/messenger/download/')
-					}
+					item.body = item.body.replace('/download/', '/messenger/download/')
 				});
 				SET('favorites.items', response);
 				var el = $('.favorites');
