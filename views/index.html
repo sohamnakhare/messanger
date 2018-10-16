@@ -556,7 +556,7 @@
 			current.users.forEach(function(item) {
 				if(user.recent[item.id]) {
 					item.flagClass = item.citizenship ?
-					"flag-icon flag-icon-"+coutriesMap[item.citizenship] : "";
+					"flag-icon flag-icon-"+coutriesMap[item.citizenship].toLowerCase() : "";
 					recent.push(item);
 				}
 			});
