@@ -73,7 +73,7 @@
 						<a href="/messenger/users/{{ linker }}/" class="jrouting jsearch" data-search="{{ name }}" data-id="{{ id }}">
 							<span class="operation" data-name="recent"><i class="fa fa-times"></i></span>
 							<i class="fa useronline fa-circle {{ if online }}online{{ fi }}" data-id="{{ id }}">	
-							</i>{{ name }} <span class="{{flagClass}}}"></span></a>
+							</i>{{ name }} <span class="{{flagClass}}"></span></a>
 						{{ fi }}
 					</script>
 				</nav>
@@ -469,9 +469,9 @@
 					SET('current.title', '#' + item.name);
 					SET('current.description', 
 					((item.currentLocation ? 
-						'in: '+item.currentLocation:'') +
+						'in '+item.currentLocation:'') +
 					(item.citizenship ?
-						' from: '+item.citizenship : '')));
+						' from '+item.citizenship : '')));
 					SET('common.search', '');
 					SET('common.page', 'chat');
 					SET('chat.secret', CACHE('secret.' + current.route.item.id) ? true : false);
@@ -496,9 +496,9 @@
 					MSG_MESSAGE.id = undefined;
 					SET('current.title', item.name);
 					SET('current.description', ((item.currentLocation ? 
-						'in: '+item.currentLocation:'') +
+						'in '+item.currentLocation:'') +
 					(item.citizenship ?
-						' from: '+item.citizenship : '')));
+						' from '+item.citizenship : '')));
 					SET('common.search', '');
 					SET('common.page', 'chat');
 					SET('chat.secret', CACHE('secret.' + current.route.item.id) ? true : false);
