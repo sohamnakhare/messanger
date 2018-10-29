@@ -97,6 +97,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					<h2 data-b="current.title" data-b-html="n => n" class="singleline">...</h2>
+					<p data-b="current.actualDescription" data-b-html="n => n" class="singleline">...</p>
 					<p data-b="current.description" data-b-html="n => n" class="singleline">...</p>
 				</div>
 				<div class="col-lg-4 visible-lg">
@@ -471,6 +472,7 @@
 					current.route.item = item;
 					MSG_MESSAGE.id = undefined;
 					SET('current.title', '#' + item.name);
+					SET('current.actualDescription', item.description);
 					SET('current.description', 
 					((item.currentLocation ? 
 						'in '+item.currentLocation:'') +
@@ -499,6 +501,7 @@
 					current.route.item = item;
 					MSG_MESSAGE.id = undefined;
 					SET('current.title', item.name);
+					SET('current.actualDescription', item.description);
 					SET('current.description', ((item.currentLocation ? 
 						'in '+item.currentLocation:'') +
 					(item.citizenship ?
