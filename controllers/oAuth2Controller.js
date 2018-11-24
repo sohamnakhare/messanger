@@ -4,6 +4,10 @@ const OAUTH_CLIENT_SECRET = 'QgBE4Uplms4-zOGVLh1vMKDi';
 const FACEBOOK_APPID = '381736985661759';
 const FACEBOOK_SECRET = 'af02a082d64ac33476fb16f7f1c93c77';
 
+const COVERTFOX_ACCESS_TOKEN = "sKCXx2Oh7Q2QSgkP4quhFB490GpGn+vaJGVhZLCODr3vi02sjpksoBUKNYSBF1t0Es4=";
+
+const axios = require('axios');
+
 exports.install = function () {
     F.route('/login/google/', oauth_login, ['unauthorize']);
     F.route('/login/google/callback/', oauth_login_callback, ['unauthorize']);
@@ -72,9 +76,37 @@ function registerUser(profile, type, callback) {
         if (err) {
             return callback(err);
         }
+        registerInCovertFox(user);
         return callback(null, user);
 
     });
+}
+
+function registerInCovertFox(user) {
+    var users = DATABASE('users');
+    users.find({email: user.email}).toArray(function(err, docs) {
+        if(err) {
+            return;
+        }
+
+        const userFromDB = docs[0];
+        const payload = {
+            email: userFromDB.email,
+            user_id: userFromDB._id,
+            name: userFromDB.name
+        };
+        axios.post("https://api.convertfox.com/users", payload, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${COVERTFOX_ACCESS_TOKEN}`
+            }
+        }).then(()=>{
+            console.log('user registered in covert fox');
+        }, (err)=>{
+            console.log('user registration failed in covert fox: ', err);
+        })
+    });
+    
 }
 
 function getUserFacebook(profile) {
