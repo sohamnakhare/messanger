@@ -24,7 +24,12 @@ function watchCollections(db) {
 			if (i != -1) {
 				const oldUser = Object.assign({}, F.global.users[i]);
 				F.global.users[i] = Object.assign({}, oldUser, user);
+				F.global.refresh();
+				return;
 			}
+			F.global.users.push(user);
+			F.global.refresh && F.global.refresh();
+			OPERATION('users.save', NOOP);
 		}
 
 		if (change.operationType === 'update') {
@@ -36,6 +41,8 @@ function watchCollections(db) {
 				const oldUser = Object.assign({}, F.global.users[i]);
 				F.global.users[i] = Object.assign({}, oldUser, user);
 			}
+			F.global.refresh && F.global.refresh();
+			OPERATION('users.save', NOOP);
 		}
 	});
 }
