@@ -1,0 +1,29 @@
+{"name":"optimisticui.txt","size":1046,"type":"text/plain","width":0,"height":0}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                "People hate waiting unless they notice the waiting"
+
+UI devs/frontend engineers : perception brokers
+
+Weber-fechner law: JND(just noticable difference)
+
+"Time persists merely as consequence of the Events taking place in [space]" -Martin Heidengger
+
+Any event consists of two phases : Active phase and Passive phase
+Active Phase: brain is in on mode
+Passive: wait mode. People in passive mode overestimate the time by 36%
+
+Techniques to tackle waits:
+Preemtive start technique
+Early Completion
+optimistic ui
+
+Passive wait: lack of control
+once a user get the control or illusion of control mind switches into active mode and tolerate the wait
+
+Optimistic UI
+
+ideally, the user should get acknowledgement of their action within 100 milliseconds.
+This is getting into the range of one of the fastest unconscious actions the human body can perform — an eye blink
+
+Early completion
+passive waiting
+“train of thought,” a “flow of thought” (PDF) or simply a “flow.”
+peak enjoyment, energetic focus and creative concentration
