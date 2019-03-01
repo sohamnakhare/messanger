@@ -3,7 +3,12 @@ var DB = null;
 
 F.wait('database');
 
-MC.connect(CONFIG('database'), function (err, db) {
+const connectionString = 'mongodb://'+
+process.env.MONGODB_PORT_27017_TCP_ADDR + ':' + process.env.MONGODB_PORT_27017_TCP_PORT;
+
+console.log('connectionString: ', connectionString);
+
+MC.connect(connectionString, function (err, db) {
 	if (err)
 		throw err;
 	console.log('mongo connected');
