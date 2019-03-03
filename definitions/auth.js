@@ -13,6 +13,8 @@ F.onAuthorize = function (req, res, flags, next) {
 		var userInCookie = JSON.parse(id);
 	}
 	catch(e) {
+		var expiration = new Date('August 19, 1975 23:15:30');
+		res.cookie(CONFIG('global-cookie'), '', expiration);
 		return next(false);
 	}
 	
