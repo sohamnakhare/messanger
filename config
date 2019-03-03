@@ -4,7 +4,7 @@ author                    : Peter Širka
 url                       : https://messenger.totaljs.com
 
 cookie                    : __user
-global-cookie             : ___global
+global-cookie             : __global
 
 // Custom SMTP settings
 mail-smtp                 : YOUR.SMTPSERVER.COM
