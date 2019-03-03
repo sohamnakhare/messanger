@@ -6,7 +6,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "mongodb": "^3.0.7",
-    "total.js": "latest"
+    "total.js": "2.6.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

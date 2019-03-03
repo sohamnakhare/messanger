@@ -9,15 +9,8 @@ F.onAuthorize = function (req, res, flags, next) {
 	id && (id = id.substring(0, id.indexOf('|')));
 	if (!id)
 		return next(false);
-	try {
-		var userInCookie = JSON.parse(id);
-	}
-	catch(e) {
-		var expiration = new Date('August 19, 1975 23:15:30');
-		res.cookie(CONFIG('global-cookie'), '', expiration);
-		return next(false);
-	}
-	
+	var userInCookie = JSON.parse(id);
+
 	MODEL('users').getUser(userInCookie.email, (err, docs) => {
 		var users = DATABASE('users');
 		users.find().toArray(function (error, allusers) {
