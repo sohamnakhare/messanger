@@ -4,8 +4,9 @@
   "version": "3.0.0",
   "main": "release.js",
   "dependencies": {
+    "axios": "^0.18.0",
     "mongodb": "^3.0.7",
-    "total.js": "latest"
+    "total.js": "2.9.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -3,7 +3,12 @@ var DB = null;
 
 F.wait('database');
 
-MC.connect(CONFIG('database'), function (err, db) {
+const connectionString = 'mongodb://'+
+process.env.MONGODB_PORT_27017_TCP_ADDR + ':' + process.env.MONGODB_PORT_27017_TCP_PORT;
+
+console.log('connectionString: ', connectionString);
+
+MC.connect(connectionString, function (err, db) {
 	if (err)
 		throw err;
 	console.log('mongo connected');
@@ -24,7 +29,12 @@ function watchCollections(db) {
 			if (i != -1) {
 				const oldUser = Object.assign({}, F.global.users[i]);
 				F.global.users[i] = Object.assign({}, oldUser, user);
+				F.global.refresh();
+				return;
 			}
+			F.global.users.push(user);
+			F.global.refresh && F.global.refresh();
+			OPERATION('users.save', NOOP);
 		}
 
 		if (change.operationType === 'update') {
@@ -36,6 +46,8 @@ function watchCollections(db) {
 				const oldUser = Object.assign({}, F.global.users[i]);
 				F.global.users[i] = Object.assign({}, oldUser, user);
 			}
+			F.global.refresh && F.global.refresh();
+			OPERATION('users.save', NOOP);
 		}
 	});
 }

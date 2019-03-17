@@ -155,7 +155,7 @@ function setCookies(profile, email, type, controller) {
 function setGlobalCookie(user, controller) {
     const User = MODEL('users').UserModel;
     user = Object.assign({}, new User(), user);
-    var globalCookie = F.encrypt(JSON.stringify(user) + '|' + controller.ip + '|' + F.datetime.getTime());
+    var globalCookie = F.encrypt(JSON.stringify(user) + '|' + F.datetime.getTime());
     controller.cookie(CONFIG('global-cookie'), globalCookie, '1 month');
     // controller.cookie(CONFIG('cookie'), globalCookie, '1 month'); 
 }
